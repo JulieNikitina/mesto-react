@@ -1,12 +1,12 @@
-
-function PopupWithImage() {
+function PopupWithImage(props) {
+  const popupClassName = props.isOpen ? "popup popup_active" : "popup";
   return (
-    <div className="popup" id="viewPhoto">
-      <button className="popup__close-button" type="button">
+    <div className={popupClassName} id="viewPhoto">
+      <button className="popup__close-button" type="button" onClick={props.onClose}>
       </button>
-      <img className="popup__photo" src='<%=require("./images/profile/profile-image.jpg")%>'
-           alt="Описание изображения"/>
-      <h3 className="popup__photo-caption"/>
+      <img className="popup__photo" src={props.card.link}
+           alt={props.card.name}/>
+      <h3 className="popup__photo-caption">{props.card.name}</h3>
     </div>
   );
 }
