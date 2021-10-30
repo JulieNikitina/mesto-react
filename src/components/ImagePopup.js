@@ -1,4 +1,4 @@
-function PopupWithImage(props) {
+function ImagePopup(props) {
   const popupClassName = props.isOpen ? "popup popup_active" : "popup";
   return (
     <div className={popupClassName} id="viewPhoto" onClick={props.closeByOverlay}>
@@ -11,5 +11,5 @@ function PopupWithImage(props) {
   );
 }
 
-export default PopupWithImage;
+export default ImagePopup;
 

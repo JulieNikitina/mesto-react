@@ -3,7 +3,7 @@ import Header from "./Header";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithForm from "./PopupWithForm";
-import PopupWithImage from "./PopupWithImage";
+import ImagePopup from "./ImagePopup";
 import React from "react";
 
 function App() {
@@ -84,8 +84,8 @@ function App() {
           <span className="url-input-error form__input-error"/>
         </label>
       </PopupWithForm>
-      <PopupWithImage card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups}
-                      closeByOverlay={closeOverlay}/>
+      <ImagePopup card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups}
+                  closeByOverlay={closeOverlay}/>
       <PopupWithForm name="deleteImagePopup" title="Вы уверены?" button="Да" onClose={closeAllPopups}
                      closeByOverlay={closeOverlay}/>
     </div>
