@@ -30,6 +30,11 @@ function App() {
     setSelectedCard(card)
     setIsPopupWithImageOpen(true)
   }
+  function closeOverlay(e) {
+    if (e.target === e.currentTarget) {
+      closeAllPopups();
+    }
+  }
 
   function closeAllPopups() {
     setIsEditAvatarPopupOpen(false)
@@ -45,7 +50,7 @@ function App() {
             onCardClick={handleCardClick}/>
       <Footer/>
       <PopupWithForm name="profileImageForm" title="Обновить аватар" button="Сохранить" isOpen={isEditAvatarPopupOpen}
-                     onClose={closeAllPopups}>
+                     onClose={closeAllPopups} closeByOverlay={closeOverlay}>
         <label className="form__field">
           <input id="profile-image-url-input" required className="form__input-field" type="url" name="photo"
                  placeholder="Ссылка на аватар"/>
@@ -53,7 +58,7 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm name="profileForm" title="Редактировать профиль" button="Сохранить" isOpen={isEditProfilePopupOpen}
-                     onClose={closeAllPopups}>
+                     onClose={closeAllPopups} closeByOverlay={closeOverlay}>
         <label className="form__field">
           <input id="name-input" required className="form__input-field" type="text" name="name" placeholder="Имя"
                  minLength="2" maxLength="40"/>
@@ -66,7 +71,7 @@ function App() {
         </label>
       </PopupWithForm>
       <PopupWithForm name="addCardForm" title="Новое место" button="Сохранить" isOpen={isAddPlacePopupOpen}
-                     onClose={closeAllPopups}>
+                     onClose={closeAllPopups} closeByOverlay={closeOverlay}>
         <label className="form__field">
           <input id="title-input" required className="form__input-field" type="text" name="name"
                  placeholder="Название" minLength="3" maxLength="30"/>
@@ -78,8 +83,8 @@ function App() {
           <span className="url-input-error form__input-error"/>
         </label>
       </PopupWithForm>
-      <PopupWithImage card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups}/>
-      <PopupWithForm name="deleteImagePopup" title="Вы уверены?" button="Да" onClose={closeAllPopups}/>
+      <PopupWithImage card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups} closeByOverlay={closeOverlay}/>
+      <PopupWithForm name="deleteImagePopup" title="Вы уверены?" button="Да" onClose={closeAllPopups} closeByOverlay={closeOverlay}/>
     </div>
   );
 }
