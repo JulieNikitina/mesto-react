@@ -1,6 +1,6 @@
 import {AUTORIZATION_PARAMS} from "./utils";
 
-class Api {
+class api {
   constructor(params) {
     this._params = params;
     this._queryParams = {};
@@ -106,4 +106,4 @@ class Api {
   }
 }
 
-export const api = new Api(AUTORIZATION_PARAMS);
+export const projectApi = new api(AUTORIZATION_PARAMS);

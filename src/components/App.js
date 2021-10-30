@@ -15,21 +15,22 @@ function App() {
 
 
   function handleEditAvatarClick() {
-    setIsEditAvatarPopupOpen(true)
+    setIsEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setIsAddPlacePopupOpen(true)
+    setIsAddPlacePopupOpen(true);
   }
 
   function handleCardClick(card) {
     setSelectedCard(card)
-    setIsPopupWithImageOpen(true)
+    setIsPopupWithImageOpen(true);
   }
+
   function closeOverlay(e) {
     if (e.target === e.currentTarget) {
       closeAllPopups();
@@ -37,10 +38,10 @@ function App() {
   }
 
   function closeAllPopups() {
-    setIsEditAvatarPopupOpen(false)
-    setIsEditProfilePopupOpen(false)
-    setIsAddPlacePopupOpen(false)
-    setIsPopupWithImageOpen(false)
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false);
+    setIsAddPlacePopupOpen(false);
+    setIsPopupWithImageOpen(false);
   }
 
   return (
@@ -83,8 +84,10 @@ function App() {
           <span className="url-input-error form__input-error"/>
         </label>
       </PopupWithForm>
-      <PopupWithImage card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups} closeByOverlay={closeOverlay}/>
-      <PopupWithForm name="deleteImagePopup" title="Вы уверены?" button="Да" onClose={closeAllPopups} closeByOverlay={closeOverlay}/>
+      <PopupWithImage card={selectedCard} isOpen={isPopupWithImageOpen} onClose={closeAllPopups}
+                      closeByOverlay={closeOverlay}/>
+      <PopupWithForm name="deleteImagePopup" title="Вы уверены?" button="Да" onClose={closeAllPopups}
+                     closeByOverlay={closeOverlay}/>
     </div>
   );
 }
