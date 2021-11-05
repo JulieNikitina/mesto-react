@@ -42,6 +42,7 @@
 @import url(./blocks/elements/elements.css);
 @import url(./blocks/element/element.css);
 @import url(./blocks/element/__basket-button/element__basket-button.css);
+@import url(./blocks/element/__basket-button/_hidden/element__basket-button_hidden.css);
 @import url(./blocks/element/__like-section/element__like-section.css);
 @import url(./blocks/element/__like-button/element__like-button.css);
 @import url(./blocks/element/__like-button/_active/element__like-button_active.css);
