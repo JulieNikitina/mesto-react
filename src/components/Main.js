@@ -1,23 +1,9 @@
 import React from "react";
-import {projectApi} from "../utils/projectApi";
-
 import Card from "./Card";
 import {CurrentUserContext} from "../contexts/CurrentUserContext";
 
 function Main(props) {
   const currentUser = React.useContext(CurrentUserContext);
-  const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    Promise.all([projectApi.getInitialCards()])
-      .then(([resultInitialCards]) => {
-        setCards(resultInitialCards);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
   return (
     <main>
       <section className="profile">
@@ -38,8 +24,9 @@ function Main(props) {
         </button>
       </section>
       <section className="elements">
-        {cards.map((card, i) => (
-          <Card key={i} card={card} handleClick={props.onCardClick}/>
+        {props.cards.map((card, i) => (
+          <Card key={i} card={card} handleClick={props.onCardClick} onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}/>
         ))}
       </section>
     </main>

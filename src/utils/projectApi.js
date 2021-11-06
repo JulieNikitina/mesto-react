@@ -57,13 +57,13 @@ class api {
       });
   }
 
-  addNewCard(card) {
+  addNewCard(name, link) {
     const queryParams = {
       method: 'POST',
       headers: this._queryParams.headers,
       body: JSON.stringify({
-        name: card.name,
-        link: card.link
+        name: name,
+        link: link
       })
     }
     return fetch(`${this._params.baseRoute}/cards`, queryParams)
