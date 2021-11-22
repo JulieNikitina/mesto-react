@@ -9,6 +9,12 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
+import {Route, Routes, Switch} from "react-router-dom";
+import ProtectedRoute from "./ProtectedRoute";
+import Test from "./SignIn";
+import SignIn from "./SignIn";
+import AuthForm from "./AuthForm";
+import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -142,15 +148,26 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <Header/>
-        <Main
-          onEditAvatar={handleEditAvatarClick}
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute redirectTo="./sign-up" loggedIn={false}>
+                <Main
+                  onEditAvatar={handleEditAvatarClick}
+                  onEditProfile={handleEditProfileClick}
+                  onAddPlace={handleAddPlaceClick}
+                  onCardClick={handleCardClick}
+                  cards={cards}
+                  onCardLike={handleCardLike}
+                  onCardDelete={handleCardDelete}
+                />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/sign-up" element={<AuthForm name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true}/>}/>
+          <Route path="/sign-in" element={<AuthForm name="SignIn" title="Вход" button="Войти" isSignUp={false}/>}/>
+        </Routes>
         <Footer/>
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
