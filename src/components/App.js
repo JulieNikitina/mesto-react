@@ -9,12 +9,13 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import {Route, Routes, Switch} from "react-router-dom";
+import {Route, Routes, Switch, useNavigate} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import Test from "./SignIn";
-import SignIn from "./SignIn";
-import AuthForm from "./AuthForm";
-import PopupWithForm from "./PopupWithForm";
+// import Test from "./SignIn";
+// import SignIn from "./SignIn";
+import Register from "./Register";
+import * as auth from "./Auth";
+// import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -144,6 +145,10 @@ function App() {
     setIsPopupWithImageOpen(false);
   }
 
+  const handleRegistration = (email, password) => {
+    return auth.register(email, password)
+    }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
@@ -165,8 +170,10 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/sign-up" element={<AuthForm name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true}/>}/>
-          <Route path="/sign-in" element={<AuthForm name="SignIn" title="Вход" button="Войти" isSignUp={false}/>}/>
+          <Route path="/sign-up" element={
+            <Register name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true} onSubmit={handleRegistration}/>
+          }/>
+          <Route path="/sign-in" element={<Register name="SignIn" title="Вход" button="Войти" isSignUp={false}/>}/>
         </Routes>
         <Footer/>
         <EditAvatarPopup
