@@ -1,26 +1,29 @@
-import {Link, useHistory, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React from "react";
 import * as auth from "./Auth"
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import PopupWithForm from "./PopupWithForm";
-import CredForm from "./CredForm";
-import InfoTooltip from "./InfoTooltip";
+import CredentialsForm from "./CredentialsForm";
 
-function  Register(props) {
+function Register(props) {
   const navigate = useNavigate()
+  const successMessage = "Вы успешно зарегистрировались!"
 
   function handleSubmit(email, password) {
     auth.register(email, password)
-      .then(() => {
-        props.handleInfoTooltip(true);
-        navigate("/sign-in")
-      })
-      .catch((err) => {
-        props.handleInfoTooltip(false)
-      })
+      .then(data => {
+        if (data.error) {
+          props.handleInfoTooltip(false, data.error);
+        } else if (data.email) {
+          props.handleInfoTooltip(true, successMessage);
+          navigate("/sign-in")
+        } else {
+          props.handleInfoTooltip(false, 'Что-то невероятное случилось');
+        }
+      });
   }
+
   return (
-    <CredForm name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true} onSubmit={handleSubmit}/>)
+    <CredentialsForm name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true}
+                     onSubmit={handleSubmit}/>)
 }
 
 export default Register;

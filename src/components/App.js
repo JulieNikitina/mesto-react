@@ -9,15 +9,11 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import {Route, Routes, Switch, useNavigate} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-// import Test from "./SignIn";
-// import SignIn from "./SignIn";
 import Register from "./Register";
-import * as auth from "./Auth";
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
-// import PopupWithForm from "./PopupWithForm";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -30,6 +26,8 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false);
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
+  const [infoMessage, setInfoMessage] = React.useState("");
+
 
 
   React.useEffect(() => {
@@ -156,13 +154,11 @@ function App() {
     setLoggedIn(true)
   }
 
-
-  function handleCredFormPopup(isSuccess) {
+  function handleCredFormPopup(isSuccess, message) {
     setIsInfoTooltipPopupOpen(true);
     setIsSuccess(isSuccess);
+    setInfoMessage(message);
   }
-
-
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -214,6 +210,7 @@ function App() {
           isSuccess={isSuccess}
           onClose={closeAllPopups}
           closeByOverlay={closeOverlay}
+          message={infoMessage}
         />
       </div>
     </CurrentUserContext.Provider>

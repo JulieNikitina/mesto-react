@@ -11,7 +11,7 @@ function InfoTooltip(props) {
       <div className="popup__container">
         <div className="popup__info">
           <img className="popup__logo" src={imagePath}/>
-          <span className="popup__message">Тут будет сообщение</span>
+          <span className="popup__message">{props.message}</span>
         </div>
       </div>
     </div>

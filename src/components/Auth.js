@@ -11,11 +11,18 @@ export const register = (email, password) => {
       email: email,
       password: password
     })
-  })
-    .then((response) => {
-      if (response.status !== 201) {
-        throw new Error('Invalid server response');
+  }).then(response => response.json())
+    .then(body => {
+      if (body.error) {
+        return { error: body.error };
       }
+      if (body.message) {
+        return { error: body.message };
+      }
+      return { email: body.email };
+    })
+    .catch(() => {
+      return { error: "Проверь интернет" }
     });
 };
 

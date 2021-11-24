@@ -1,10 +1,7 @@
-import {Link, useHistory, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import React from "react";
-import * as auth from "./Auth"
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import PopupWithForm from "./PopupWithForm";
 
-function CredForm(props) {
+function CredentialsForm(props) {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -42,4 +39,4 @@ function CredForm(props) {
   )
 }
 
-export default CredForm;
+export default CredentialsForm;

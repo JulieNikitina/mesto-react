@@ -1,10 +1,7 @@
-import {Link, useHistory, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import React from "react";
 import * as auth from "./Auth"
-import {CurrentUserContext} from "../contexts/CurrentUserContext";
-import PopupWithForm from "./PopupWithForm";
-import CredForm from "./CredForm";
-import InfoTooltip from "./InfoTooltip";
+import CredentialsForm from "./CredentialsForm";
 
 function Login(props) {
   const navigate = useNavigate()
@@ -18,13 +15,13 @@ function Login(props) {
         navigate('/');
       })
       .catch((err) => {
-        props.handleInfoTooltip(false);
+        props.handleInfoTooltip(false, err);
         console.log(err);
       });
   }
 
   return (
-    <CredForm name="SignIn" title="Вход" button="Войти" isSignUp={false} onSubmit={handleSubmit}/>
+    <CredentialsForm name="SignIn" title="Вход" button="Войти" isSignUp={false} onSubmit={handleSubmit}/>
   )
 }
 
