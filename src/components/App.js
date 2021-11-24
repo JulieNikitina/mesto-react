@@ -15,6 +15,8 @@ import ProtectedRoute from "./ProtectedRoute";
 // import SignIn from "./SignIn";
 import Register from "./Register";
 import * as auth from "./Auth";
+import Login from "./Login";
+import InfoTooltip from "./InfoTooltip";
 // import PopupWithForm from "./PopupWithForm";
 
 function App() {
@@ -25,6 +27,10 @@ function App() {
   const [isPopupWithImageOpen, setIsPopupWithImageOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
+  const [isSuccess, setIsSuccess] = React.useState(false);
+
 
   React.useEffect(() => {
     projectApi.getInitialCards()
@@ -143,11 +149,20 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsPopupWithImageOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
-  const handleRegistration = (email, password) => {
-    return auth.register(email, password)
-    }
+  function handleLogin(){
+    setLoggedIn(true)
+  }
+
+
+  function handleCredFormPopup(isSuccess) {
+    setIsInfoTooltipPopupOpen(true);
+    setIsSuccess(isSuccess);
+  }
+
+
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -157,7 +172,7 @@ function App() {
           <Route
             path="/"
             element={
-              <ProtectedRoute redirectTo="./sign-up" loggedIn={false}>
+              <ProtectedRoute redirectTo="./sign-up" loggedIn={loggedIn}>
                 <Main
                   onEditAvatar={handleEditAvatarClick}
                   onEditProfile={handleEditProfileClick}
@@ -170,10 +185,8 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/sign-up" element={
-            <Register name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true} onSubmit={handleRegistration}/>
-          }/>
-          <Route path="/sign-in" element={<Register name="SignIn" title="Вход" button="Войти" isSignUp={false}/>}/>
+          <Route path="/sign-up" element={<Register handleInfoTooltip={handleCredFormPopup}/>}/>
+          <Route path="/sign-in" element={<Login handleLogin={handleLogin} handleInfoTooltip={handleCredFormPopup}/>}/>
         </Routes>
         <Footer/>
         <EditAvatarPopup
@@ -196,6 +209,12 @@ function App() {
           isOpen={isPopupWithImageOpen}
           onClose={closeAllPopups}
           closeByOverlay={closeOverlay}/>
+        <InfoTooltip
+          isOpen={isInfoTooltipPopupOpen}
+          isSuccess={isSuccess}
+          onClose={closeAllPopups}
+          closeByOverlay={closeOverlay}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
