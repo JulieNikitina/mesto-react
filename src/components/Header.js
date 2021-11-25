@@ -10,6 +10,7 @@ function Header(props) {
     props.handleLogout();
     navigate('/sign-in');
   }
+
   return (
     <header className="header">
       <img className="header__logo" src={logoPath} alt="Лого"/>
@@ -22,10 +23,11 @@ function Header(props) {
           </>
           :
           <>
-            {window.location.pathname==="/sign-up" &&  <Link to="/sign-in" className="header__link"> Войти </Link>}
-            {window.location.pathname==="/sign-in" &&  <Link to="/sign-up" className="header__link"> Зарегистрироваться </Link>}
+            {window.location.pathname === "/sign-up" && <Link to="/sign-in" className="header__link"> Войти </Link>}
+            {window.location.pathname === "/sign-in" &&
+            <Link to="/sign-up" className="header__link"> Зарегистрироваться </Link>}
           </>
-          }
+        }
       </div>
 
     </header>
