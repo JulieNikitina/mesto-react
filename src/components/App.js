@@ -32,7 +32,6 @@ function App() {
 
   const navigate = useNavigate()
 
-
   React.useEffect(() => {
     projectApi.getInitialCards()
       .then((resultInitialCards) => {
@@ -70,7 +69,6 @@ function App() {
       })
     }
   }, [loggedIn, setCurrentUserEmail, setLoggedIn, navigate]);
-
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -167,11 +165,11 @@ function App() {
     setIsInfoTooltipPopupOpen(false);
   }
 
-  function handleLogin(){
+  function handleLogin() {
     setLoggedIn(true)
   }
 
-  function handleCredFormPopup(isSuccess, message) {
+  function handleCredentialsFormPopup(isSuccess, message) {
     setIsInfoTooltipPopupOpen(true);
     setIsSuccess(isSuccess);
     setInfoMessage(message);
@@ -198,8 +196,9 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="/sign-up" element={<Register handleInfoTooltip={handleCredFormPopup}/>}/>
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} handleInfoTooltip={handleCredFormPopup}/>}/>
+          <Route path="/sign-up" element={<Register handleInfoTooltip={handleCredentialsFormPopup}/>}/>
+          <Route path="/sign-in"
+                 element={<Login handleLogin={handleLogin} handleInfoTooltip={handleCredentialsFormPopup}/>}/>
         </Routes>
         <Footer/>
         <EditAvatarPopup

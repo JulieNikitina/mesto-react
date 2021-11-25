@@ -9,8 +9,6 @@ function Login(props) {
   function handleSubmit(email, password) {
     auth.authorize(email, password)
       .then((data) => {
-        //todo: проверить что там с обнулением мейла и пароля
-        // this.setState({username: '', password: ''},
         if (data.error) {
           props.handleInfoTooltip(false, data.error);
         }
