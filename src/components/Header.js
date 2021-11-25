@@ -1,8 +1,15 @@
 import logoPath from '../images/header/header-logo.svg';
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 function Header(props) {
+  const navigate = useNavigate();
+
+  function signOut() {
+    localStorage.removeItem('jwt');
+    props.handleLogout();
+    navigate('/sign-in');
+  }
   return (
     <header className="header">
       <img className="header__logo" src={logoPath} alt="Лого"/>
@@ -11,7 +18,7 @@ function Header(props) {
           ?
           <>
             <div className="header__email">{props.currentUserEmail}</div>
-            <Link to="/sign-in" className="header__link"> Выйти </Link>
+            <Link to="/sign-in" className="header__link" onClick={signOut}> Выйти </Link>
           </>
           :
           <>

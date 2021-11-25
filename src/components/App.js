@@ -169,6 +169,10 @@ function App() {
     setLoggedIn(true)
   }
 
+  function handleLogout() {
+    setLoggedIn(false)
+  }
+
   function handleCredentialsFormPopup(isSuccess, message) {
     setIsInfoTooltipPopupOpen(true);
     setIsSuccess(isSuccess);
@@ -178,7 +182,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header isLoggedIn={loggedIn} currentUserEmail={currentUserEmail}/>
+        <Header isLoggedIn={loggedIn} currentUserEmail={currentUserEmail} handleLogout={handleLogout}/>
         <Routes>
           <Route
             path="/"
