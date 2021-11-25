@@ -9,11 +9,12 @@ import {CurrentUserContext} from "../contexts/CurrentUserContext";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
 import AddPlacePopup from "./AddPlacePopup";
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useNavigate} from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import Login from "./Login";
 import InfoTooltip from "./InfoTooltip";
+import * as auth from "../utils/auth"
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
@@ -27,7 +28,9 @@ function App() {
   const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = React.useState(false);
   const [infoMessage, setInfoMessage] = React.useState("");
+  const [currentUserEmail, setCurrentUserEmail] = React.useState("");
 
+  const navigate = useNavigate()
 
 
   React.useEffect(() => {
@@ -54,6 +57,20 @@ function App() {
         console.log(err);
       });
   }, []);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth.checkToken(jwt).then((res) => {
+        if (res) {
+          setCurrentUserEmail(res.data.email);
+          setLoggedIn(true);
+          navigate("/");
+        }
+      })
+    }
+  }, [loggedIn, setCurrentUserEmail, setLoggedIn, navigate]);
+
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -163,7 +180,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header/>
+        <Header isLoggedIn={loggedIn} currentUserEmail={currentUserEmail}/>
         <Routes>
           <Route
             path="/"

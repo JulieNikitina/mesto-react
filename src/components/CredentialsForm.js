@@ -15,7 +15,7 @@ function CredentialsForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.onSubmit(email, password)
+    props.onSubmit(email, password);
   }
   return (
     <div className="form__container">
@@ -33,7 +33,7 @@ function CredentialsForm(props) {
           <span className="password-input-error form__input-error"/>
         </label>
         <button className="form__submit-button form__submit-button_white" type="submit">{props.button}</button>
-        {props.isSignUp && <Link to="./sign-in" className="form__link">Уже зарегистрированы? Войти</Link>}
+        {props.isSignUp && <Link to="/sign-in" className="form__link">Уже зарегистрированы? Войти</Link>}
       </form>
     </div>
   )

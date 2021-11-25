@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import React from "react";
-import * as auth from "./Auth"
+import * as auth from "../utils/auth"
 import CredentialsForm from "./CredentialsForm";
 
 function Login(props) {
@@ -8,15 +8,19 @@ function Login(props) {
 
   function handleSubmit(email, password) {
     auth.authorize(email, password)
-      .then(() => {
+      .then((data) => {
         //todo: проверить что там с обнулением мейла и пароля
         // this.setState({username: '', password: ''},
-        props.handleLogin();
-        navigate('/');
+        if (data.error) {
+          props.handleInfoTooltip(false, data.error);
+        }
+        if (data.token) {
+          props.handleLogin();
+          navigate('/');
+        }
       })
-      .catch((err) => {
-        props.handleInfoTooltip(false, err);
-        console.log(err);
+      .catch(() => {
+        props.handleInfoTooltip(false, 'Что-то пошло не так');
       });
   }
 
@@ -26,5 +30,3 @@ function Login(props) {
 }
 
 export default Login;
-
-

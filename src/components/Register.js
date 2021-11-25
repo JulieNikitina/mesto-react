@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import React from "react";
-import * as auth from "./Auth"
+import * as auth from "../utils/auth"
 import CredentialsForm from "./CredentialsForm";
 
 function Register(props) {
@@ -16,11 +16,10 @@ function Register(props) {
           props.handleInfoTooltip(true, successMessage);
           navigate("/sign-in")
         } else {
-          props.handleInfoTooltip(false, 'Что-то невероятное случилось');
+          props.handleInfoTooltip(false, 'Что-то пошло не так');
         }
       });
   }
-
   return (
     <CredentialsForm name="SignUp" title="Регистрация" button="Зарегистрироваться" isSignUp={true}
                      onSubmit={handleSubmit}/>)
